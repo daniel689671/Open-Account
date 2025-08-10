@@ -5,7 +5,6 @@ const home = () => {
   return (
     <div>
       <div className="mb-3">
-        <img src="" alt="" />
         <div>
           <h2 className=" mb-7 font-bold">
             Transform Your Vision Into{" "}
