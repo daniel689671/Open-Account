@@ -8,9 +8,11 @@ const home = () => {
         <div>
           <h2 className=" mb-7 font-bold">
             Transform Your Vision Into{" "}
-            <span className="font-extrabold text-green-700">Reality</span>
+            <span className="font-extrabold text-[50px] text-green-900">
+              Reality
+            </span>
           </h2>
-          <Link to="/Regeister" className=" font-extrabold text-blue-700 mb-3">
+          <Link to="/Regeister" className=" font-extrabold text-blue-900 mb-5">
             Click here{" "}
           </Link>
         </div>

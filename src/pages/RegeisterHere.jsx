@@ -3,6 +3,7 @@ import logo from "../assets/Credit-Union-in-USA.webp";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import foto from "../assets/visibility.png";
+import countriesData from "../components/data/countries.json";
 
 const RegeisterHere = () => {
   const initialFormData = {
@@ -61,6 +62,8 @@ const RegeisterHere = () => {
       [name]: files ? files[0] : value,
     });
   };
+  const allCurrencies = [...new Set(countriesData.map((c) => c.currency))];
+  const [countryCode, setCountryCode] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -190,30 +193,52 @@ const RegeisterHere = () => {
             "username"
           )}`}
         />
+        {/* Country Code + Phone Number */}
+        <div className="flex gap-2">
+          <select
+            value={countryCode}
+            onChange={(e) => setCountryCode(e.target.value)}
+            className={`input text-gray-900  border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
+              " Country Code"
+            )} rounded`}
+          >
+            <option value="">Select Code</option>
+            {countriesData.map((country, idx) => (
+              <option key={idx} value={`+${country.callingCodes[0]}`}>
+                +{country.callingCodes[0]}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={formData.phoneNumber}
+            onChange={(e) =>
+              setFormData({ ...formData, phoneNumber: e.target.value })
+            }
+            className={`input text-gray-900  border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
+              "phone"
+            )}`}
+          />
+        </div>
+
         <select
-          name="countryCode"
-          value={formData.countryCode}
+          name="country"
+          value={formData.country}
           onChange={handleChange}
-          className={`input text-gray-900  border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
-            "countryCode"
-          )}`}
+          className={`input text-gray-900 border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
+            "country"
+          )} rounded`}
         >
-          <option value="">Country Code</option>
-          <option>+234</option>
-          <option>+1</option>
-          <option>+44</option>
-          <option>+91</option>
+          <option value="">Select Country</option>
+          {countriesData.map((country, idx) => (
+            <option key={idx} value={country.name}>
+              {country.name}
+            </option>
+          ))}
         </select>
 
-        <input
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="Phone"
-          className={`input text-gray-900  border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
-            "phone"
-          )}`}
-        />
         <div className="relative w-full">
           <input
             type={showPassword ? "text" : "password"}
@@ -251,20 +276,7 @@ const RegeisterHere = () => {
             className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5"
           />
         </div>
-        <select
-          name="country"
-          value={formData.country}
-          onChange={handleChange}
-          className={`input text-gray-900  border rounded-md px-4 py-2 w-full text-sm ${getBorderColor(
-            "country"
-          )}`}
-        >
-          <option value="">Select Country</option>
-          <option>Canada</option>
-          <option>United States</option>
-          <option>India</option>
-          <option>UK</option>
-        </select>
+
         <input
           name="city"
           value={formData.city}
